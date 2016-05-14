@@ -14,7 +14,7 @@
 
 <script type="text/javascript">
 
-var width=800;
+var width=900;
 var height=600;
 var game = new Phaser.Game(width, height, Phaser.CANVAS, '', { preload: preload, create: create, update: update, render: render});
 
@@ -48,9 +48,9 @@ var plates;
 var block1;
 var block2;
 var block3;
-var measure1={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "1", midtext: "", cx: 650, cy: 275, intable: false, ok: null };
-var measure2={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "2", midtext: "", cx: 630, cy: 360, intable: false, ok: null};
-var measure3={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "3", midtext: "", cx: 630, cy: 445, intable: false, ok: null};
+var measure1={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "1", midtext: "", cx: 727, cy: 252, intable: false, ok: null };
+var measure2={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "2", midtext: "", cx: 727, cy: 325, intable: false, ok: null};
+var measure3={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "3", midtext: "", cx: 727, cy: 395, intable: false, ok: null};
 var button1;
 var button11;
 var button2;
@@ -62,7 +62,7 @@ var buttontools;
 var pivImg1;
 var pivImg2;
 var pivImg3;
-var style = { font: "12px Arial" };
+var style = { font: "12px Arial", align: "center" };
 var textA=null;
 var textB=null;
 var textC=null;
@@ -192,6 +192,9 @@ function create(){
 	measure3.ok.anchor.setTo(0.5);
 	measure3.ok.visible=false;
 
+	text_m1 = game.add.text(632, 273, "Medida 1", style);
+	text_m2 = game.add.text(632, 346, "Medida 2", style);
+	text_m3 = game.add.text(632, 418, "Medida 3", style);
 }
 //Se permite que las rocas y el instrumento de medición colisionen. Cuando ocurra se llama a la función onTouch.
 function update(){
@@ -202,15 +205,15 @@ function update(){
 function reloadTable(){
 	console.log(localStorage.getItem('b_m1'));
 	if(localStorage.getItem('b_m1')!=null){
-		textA = game.add.text(630, 275, localStorage.getItem('b_m1'), style);
+		textA = game.add.text(727, 252, localStorage.getItem('b_m1'), style);
 		tableup.measures++;
 	}
 	if(localStorage.getItem('b_m2')!=null){
-		textB = game.add.text(630, 360, localStorage.getItem('b_m2'), style);
+		textB = game.add.text(727, 325, localStorage.getItem('b_m2'), style);
 		tableup.measures++;
 	}
 	if(localStorage.getItem('b_m3')!=null){
-		textC = game.add.text(630, 445, localStorage.getItem('b_m3'), style);
+		textC = game.add.text(727, 395, localStorage.getItem('b_m3'), style);
 		tableup.measures++;
 	}
 	checkfull();
@@ -248,17 +251,17 @@ function measure(measureTemp, obj1, obj2){
 	}
 	if (measureTemp.plw>measureTemp.prw){
 		console.log("izquierdo abajo");
-		text2 = " es más \n                pesada\n                que ";
+		text2 = " es más\npesada\nque ";
 		console.log(measureTemp.pl);
 		console.log(measureTemp.pr);
 	} else if(measureTemp.plw==measureTemp.prw){
 		console.log("Iguales");
-		text2 = " pesa lo \n                mismo\n                que ";
+		text2 = " pesa lo\nmismo\nque ";
 		console.log(measureTemp.pl);
 		console.log(measureTemp.pr);
 	}else{
 		console.log("izquierdo arriba");
-		text2 = " es más \n                liviana\n                que ";
+		text2 = " es más\nliviana\nque ";
 		console.log(measureTemp.pl);
 		console.log(measureTemp.pr);
 	}
@@ -270,7 +273,7 @@ function measure(measureTemp, obj1, obj2){
 }
 
 function doMeasure(m){
-	var text = game.add.text(m.cx, m.cy,"Medida "+m.name+"                "+m.pl.key+m.midtext+m.pr.key, style);
+	var text = game.add.text(m.cx, m.cy,m.pl.key+m.midtext+m.pr.key, style);
 	m.result=text;
 	m.result.visible=false;
 	m.blockused=true;
